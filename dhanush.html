@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DINO FINANCIAL | Interest Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background: #0D1020;
+    color: #F4F2FF;
+    min-height: 100vh;
+    padding: 24px 16px;
+}
+
+.container {
+    width: 100%;
+    max-width: 780px;
+    margin: auto;
+}
+
+.brand {
+    color: #63E6E2;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin: 15px 0;
+}
+
+h1, h2 {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    letter-spacing: -0.5px;
+}
+
+h1 {
+    font-size: clamp(30px, 5vw, 43px);
+    margin: 15px 0;
+}
+
+h2 {
+    font-size: 23px;
+    margin: 15px 0 22px;
+}
+
+.intro {
+    color: #B3B6CB;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #15192B;
+    border: 1px solid #383F5C;
+    border-radius: 16px;
+    padding: 26px;
+    margin: 22px 0;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.section-label {
+    color: #A9A1FF;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 22px 0 10px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #454C6B;
+    background: #101426;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: inherit;
+    outline: none;
+}
+
+input:focus {
+    border-color: #8B7CFF;
+    box-shadow: 0 0 0 3px rgba(139, 124, 255, 0.12);
+}
+
+.hint {
+    display: block;
+    color: #9299B5;
+    font-size: 12px;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+button {
+    padding: 14px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 18px 8px 0 0;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
+
+.calculate {
+    background: linear-gradient(135deg, #8B7CFF, #6557E8);
+    color: #FFFFFF;
+    border: none;
+}
+
+.secondary {
+    background: transparent;
+    color: #D9DDF1;
+    border: 1px solid #454C6B;
+}
+
+.cyan {
+    color: #63E6E2;
+}
+
+.result-label {
+    color: #A7ADC7;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-top: 25px;
+}
+
+.result {
+    font-size: clamp(32px, 7vw, 48px);
+    font-weight: bold;
+    color: #63E6E2;
+    overflow-wrap: anywhere;
+    margin: 12px 0;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #343B56;
+    margin: 24px 0;
+}
+
+.result-item {
+    margin: 20px 0;
+}
+
+.result-item span {
+    color: #A7ADC7;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.result-item strong {
+    display: block;
+    font-size: 22px;
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+}
+
+.formula {
+    background: #101426;
+    border: 1px solid #343B56;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.formula h2 {
+    color: #A9A1FF;
+    font-size: 21px;
+    overflow-wrap: anywhere;
+}
+
+.formula p {
+    color: #B3B6CB;
+    line-height: 1.7;
+    margin-top: 12px;
+}
+
+#message {
+    color: #FF9E9E;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+footer {
+    color: #9299B5;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 30px 0 15px;
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 19px;
+    }
+
+    button {
+        margin-right: 4px;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .card, .formula {
+        background: white;
+        color: black;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    .brand, .cyan, .result, .section-label,
+    .formula h2, .formula p, .result-item span {
+        color: black;
+    }
+
+    input, button, .hint {
+        display: none;
+    }
+
+    footer {
+        color: black;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="brand">🦖 DINO FINANCIAL</div>
+
+    <h1>Simple Interest Calculator</h1>
+
+    <p class="intro">
+        Smart calculations. Clear results.
+        Calculate your interest and discover your total amount.
+    </p>
+
+    <!-- INPUT SECTION -->
+
+    <section class="card">
+
+        <div class="section-label">01 / INPUTS</div>
+
+        <h2>Calculation Details</h2>
+
+        <label for="principal">Principal Amount (₹)</label>
+
+        <input
+            type="number"
+            id="principal"
+            min="0.01"
+            step="any"
+            value="50000"
+            placeholder="Enter principal amount"
+        >
+
+        <span class="hint">
+            The original amount invested or borrowed.
+        </span>
+
+        <label for="rate">Annual Interest Rate (%)</label>
+
+        <input
+            type="number"
+            id="rate"
+            min="0"
+            step="any"
+            value="7.5"
+            placeholder="Enter annual interest rate"
+        >
+
+        <span class="hint">
+            The yearly interest rate.
+        </span>
+
+        <label for="time">Investment Duration (Years)</label>
+
+        <input
+            type="number"
+            id="time"
+            min="0.01"
+            step="any"
+            value="3"
+            placeholder="Enter duration"
+        >
+
+        <span class="hint">
+            For six months, enter 0.5.
+        </span>
+
+        <button class="calculate" onclick="calculateInterest()">
+            Calculate Returns ↗
+        </button>
+
+        <button class="secondary" onclick="resetCalculator()">
+            Reset
+        </button>
+
+        <p id="message" role="alert"></p>
+
+    </section>
+
+    <!-- RESULT SECTION -->
+
+    <section class="card">
+
+        <div class="section-label">02 / OVERVIEW</div>
+
+        <h2>Your Financial Breakdown</h2>
+
+        <div class="result-label">
+            TOTAL AMOUNT AT MATURITY
+        </div>
+
+        <div class="result" id="total">₹0.00</div>
+
+        <span class="hint">Principal + Simple Interest</span>
+
+        <hr class="divider">
+
+        <div class="result-item">
+            <span>INITIAL PRINCIPAL</span>
+            <strong id="principalResult">₹0.00</strong>
+        </div>
+
+        <div class="result-item">
+            <span>INTEREST EARNED</span>
+            <strong class="cyan" id="interestResult">₹0.00</strong>
+        </div>
+
+        <div class="formula">
+
+            <div class="section-label">THE MATHEMATICS</div>
+
+            <h2>SI = (P × R × T) / 100</h2>
+
+            <p id="working">
+                Enter your values and press Calculate Returns.
+            </p>
+
+        </div>
+
+        <button class="secondary" onclick="copyBreakdown()">
+            Copy Breakdown
+        </button>
+
+        <button class="secondary" onclick="window.print()">
+            Print / Save PDF
+        </button>
+
+        <p id="copyMessage" class="hint" aria-live="polite"></p>
+
+    </section>
+
+    <footer>
+        © DINO FINANCIAL · SIMPLE INTEREST CALCULATOR
+    </footer>
+
+</div>
+
+<script>
+
+// Format currency in Indian Rupees
+function money(amount) {
+    return "₹" + amount.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+// Calculate simple interest
+function calculateInterest() {
+
+    const principal =
+        Number(document.getElementById("principal").value);
+
+    const rate =
+        Number(document.getElementById("rate").value);
+
+    const time =
+        Number(document.getElementById("time").value);
+
+    const message = document.getElementById("message");
+
+    message.textContent = "";
+    document.getElementById("copyMessage").textContent = "";
+
+    if (
+        !Number.isFinite(principal) ||
+        !Number.isFinite(rate) ||
+        !Number.isFinite(time) ||
+        principal <= 0 ||
+        rate < 0 ||
+        time <= 0
+    ) {
+        message.textContent =
+            "Please enter a valid principal, interest rate and duration.";
+        return;
+    }
+
+    // Formula: SI = (P × R × T) / 100
+    const interest = (principal * rate * time) / 100;
+
+    // Total amount = Principal + Interest
+    const totalAmount = principal + interest;
+
+    // Display results on the webpage
+    document.getElementById("total").textContent =
+        money(totalAmount);
+
+    document.getElementById("principalResult").textContent =
+        money(principal);
+
+    document.getElementById("interestResult").textContent =
+        money(interest);
+
+    document.getElementById("working").textContent =
+        "SI = (" + principal + " × " + rate + " × " + time +
+        ") / 100 = " + money(interest) +
+        ". Total = " + money(principal) +
+        " + " + money(interest) +
+        " = " + money(totalAmount) + ".";
+
+}
+
+// Reset calculator
+function resetCalculator() {
+
+    document.getElementById("principal").value = 50000;
+    document.getElementById("rate").value = 7.5;
+    document.getElementById("time").value = 3;
+
+    document.getElementById("total").textContent = "₹0.00";
+    document.getElementById("principalResult").textContent = "₹0.00";
+    document.getElementById("interestResult").textContent = "₹0.00";
+
+    document.getElementById("working").textContent =
+        "Enter your values and press Calculate Returns.";
+
+    document.getElementById("message").textContent = "";
+    document.getElementById("copyMessage").textContent = "";
+
+}
+
+// Copy calculation details
+async function copyBreakdown() {
+
+    const text =
+        "DINO FINANCIAL - Simple Interest Calculator\n" +
+        "Principal: " +
+        document.getElementById("principalResult").textContent +
+        "\nInterest: " +
+        document.getElementById("interestResult").textContent +
+        "\nTotal Amount: " +
+        document.getElementById("total").textContent +
+        "\n" +
+        document.getElementById("working").textContent;
+
+    try {
+        await navigator.clipboard.writeText(text);
+
+        document.getElementById("copyMessage").textContent =
+            "Calculation details copied successfully!";
+    } catch (error) {
+        document.getElementById("copyMessage").textContent =
+            "Copy is unavailable. Please copy the results manually.";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
